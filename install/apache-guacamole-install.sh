@@ -72,7 +72,6 @@ curl -fsSL "https://downloads.apache.org/guacamole/${RELEASE_SERVER}/binary/guac
 $STD tar -xf ~/guacamole-auth-jdbc-$RELEASE_SERVER.tar.gz
 mv ~/guacamole-auth-jdbc-$RELEASE_SERVER/mysql/guacamole-auth-jdbc-mysql-$RELEASE_SERVER.jar /etc/guacamole/extensions/
 rm -rf ~/mysql-connector-j-9.3.0{,.tar.gz}
-rm -rf ~/guacamole-auth-jdbc-$RELEASE_SERVER{,.tar.gz}
 msg_ok "Setup Apache Guacamole"
 
 msg_info "Setup Database"
@@ -90,6 +89,7 @@ $STD mariadb -u root -e "GRANT ALL ON $DB_NAME.* TO '$DB_USER'@'localhost'; FLUS
 } >>~/guacamole.creds
 cd guacamole-auth-jdbc-${RELEASE_SERVER}/mysql/schema
 cat *.sql | mariadb -u root ${DB_NAME}
+rm -rf ~/guacamole-auth-jdbc-$RELEASE_SERVER{,.tar.gz}
 {
   echo "mysql-hostname: 127.0.0.1"
   echo "mysql-port: 3306"
